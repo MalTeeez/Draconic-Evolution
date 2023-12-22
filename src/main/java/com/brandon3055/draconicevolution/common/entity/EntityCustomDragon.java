@@ -37,7 +37,7 @@ public class EntityCustomDragon extends EntityDragon {
     public int portalY = 67;
     public int portalZ = 0;
     private boolean createPortal = true;
-    public float attackDamage = 10F;
+    public float attackDamage = 22F;
     protected boolean isUber = false;
     private boolean initialized = false;
 
@@ -66,7 +66,7 @@ public class EntityCustomDragon extends EntityDragon {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(200D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(1750D);
     }
 
     @Override

@@ -194,7 +194,7 @@ public class DraconicArmor extends ItemArmor implements ISpecialArmor, IConfigur
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage,
             int slot) {
         if (source.isUnblockable() || source.isDamageAbsolute() || source.isMagicDamage())
-            return new ArmorProperties(0, damageReduceAmount / 100D, 15);
+            return new ArmorProperties(0, damageReduceAmount / 100D, 25);
         return new ArmorProperties(0, damageReduceAmount / 24.5D, 1000);
     }
 
@@ -495,7 +495,7 @@ public class DraconicArmor extends ItemArmor implements ISpecialArmor, IConfigur
 
     @Override
     public int getMaxTier(ItemStack itemstack) {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -550,7 +550,7 @@ public class DraconicArmor extends ItemArmor implements ISpecialArmor, IConfigur
 
     @Override
     public float getProtectionPoints(ItemStack stack) {
-        return EnumUpgrade.SHIELD_CAPACITY.getUpgradePoints(stack) * 20;
+        return EnumUpgrade.SHIELD_CAPACITY.getUpgradePoints(stack) * 15;
     }
 
     @Override

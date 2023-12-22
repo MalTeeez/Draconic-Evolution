@@ -101,7 +101,7 @@ public class TileEnderResurrection extends TileEntity {
         if (!worldObj.isRemote) worldObj.createExplosion(null, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 10, false);
 
         if (level > 10) level = 10;
-        EntityCustomDragon dragon = new EntityCustomDragon(worldObj, 200D + level * 50, 10F + (float) level * 5F);
+        EntityCustomDragon dragon = new EntityCustomDragon(worldObj, 1500D + level * 57, 10F + (float) level * 15F);
         dragon.setPosition(xCoord, yCoord + 60, zCoord);
         dragon.onSpawnWithEgg(null);
         if (!worldObj.isRemote) worldObj.spawnEntityInWorld(dragon);

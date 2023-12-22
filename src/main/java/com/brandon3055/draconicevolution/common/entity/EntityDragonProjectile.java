@@ -40,7 +40,7 @@ public class EntityDragonProjectile extends Entity {
     public float power;
     public boolean isChaser;
     private double lastTickTargetDistance = 100;
-    private float heath = 5F;
+    private float heath = 15F;
     private DamageSource damageFireball = new DamageSource("de.GuardianFireball").setDamageAllowedInCreativeMode()
             .setMagicDamage().setExplosion();
     private DamageSource damageEnergy = new DamageSource("de.GuardianEnergyBall").setDamageAllowedInCreativeMode()

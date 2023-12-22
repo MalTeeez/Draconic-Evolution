@@ -40,6 +40,7 @@ public class HudHandler {
     private static float shieldPoints = 0F;
     private static float maxShieldPoints = 0F;
     private static float shieldEntropy = 0F;
+    private static int deathSaves = 0;
     private static int rfCharge = 0;
     private static long rfTotal = 0;
 
@@ -142,6 +143,7 @@ public class HudHandler {
                 || rfTotal != summery.totalEnergyStored)
             armorStatsFadeOut = 5F;
 
+        deathSaves = summery.deathSaves;
         maxShieldPoints = summery.maxProtectionPoints;
         shieldPoints = summery.protectionPoints;
         shieldPercentCharge = (int) (summery.protectionPoints / summery.maxProtectionPoints * 100D);
@@ -214,6 +216,7 @@ public class HudHandler {
             String shield = Math.round(shieldPoints) + "/" + (int) maxShieldPoints;
             String entropy = "EN: " + (int) shieldEntropy + "%";
             String energy = "RF: " + Utills.formatNumber(rfTotal);
+            String saves = "EC: " + deathSaves;
             float fade = Math.min(armorStatsFadeOut, 1F);
             if (!rotated) {
                 fontRenderer
@@ -222,6 +225,8 @@ public class HudHandler {
                         .drawStringWithShadow(energy, x + 18, y + 84, ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
                 fontRenderer
                         .drawStringWithShadow(entropy, x + 18, y + 94, ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
+                fontRenderer
+                        .drawStringWithShadow(saves, x + 18, y + 74, ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
             } else {
                 fontRenderer.drawString(
                         shield,
@@ -235,6 +240,7 @@ public class HudHandler {
                         ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
                 fontRenderer
                         .drawStringWithShadow(energy, x - 102, y + 18, ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
+                fontRenderer.drawStringWithShadow(saves, x, y + 18, ((int) (fade * 240F) + 0x10 << 24) | 0x00FFFFFF);
             }
         }
 

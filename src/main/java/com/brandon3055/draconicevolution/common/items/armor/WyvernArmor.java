@@ -180,7 +180,7 @@ public class WyvernArmor extends ItemArmor implements ISpecialArmor, IConfigurab
     public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage,
             int slot) {
         if (source.isUnblockable() || source.isDamageAbsolute() || source.isMagicDamage())
-            return new ArmorProperties(0, damageReduceAmount / 100D, 15);
+            return new ArmorProperties(0, damageReduceAmount / 100D, 22);
         return new ArmorProperties(0, damageReduceAmount / 25D, 1000);
     }
 
@@ -373,7 +373,7 @@ public class WyvernArmor extends ItemArmor implements ISpecialArmor, IConfigurab
 
     @Override
     public int getMaxTier(ItemStack itemstack) {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -427,7 +427,7 @@ public class WyvernArmor extends ItemArmor implements ISpecialArmor, IConfigurab
     // region//----------------- ICustomArmor Start -----------------//
     @Override
     public float getProtectionPoints(ItemStack stack) {
-        return EnumUpgrade.SHIELD_CAPACITY.getUpgradePoints(stack) * 20F;
+        return EnumUpgrade.SHIELD_CAPACITY.getUpgradePoints(stack) * 15F;
     }
 
     @Override

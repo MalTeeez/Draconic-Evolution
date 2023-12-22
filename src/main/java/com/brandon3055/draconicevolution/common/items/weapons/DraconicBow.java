@@ -251,7 +251,7 @@ public class DraconicBow extends ItemBow
 
     @Override
     public int getMaxTier(ItemStack itemstack) {
-        return 2;
+        return 3;
     }
 
     @Override

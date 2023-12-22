@@ -115,7 +115,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(2000);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(5000);
     }
 
     @Override
@@ -629,7 +629,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                             worldObj,
                             EntityDragonProjectile.FIREBOMB,
                             target instanceof EntityLivingBase ? (EntityLivingBase) target : null,
-                            5F + (rand.nextFloat() * 8F),
+                            12F + (rand.nextFloat() * 8F),
                             this);
                     projectile.setPosition(
                             dragonPartHead.posX + Math.cos((rotationYaw - 90) / 180.0F * (float) Math.PI) * 2,
@@ -698,7 +698,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                                     worldObj,
                                     EntityDragonProjectile.FIREBOMB,
                                     attackTarget instanceof EntityLivingBase ? (EntityLivingBase) attackTarget : null,
-                                    5F + (rand.nextFloat() * 8F),
+                                    12F + (rand.nextFloat() * 8F),
                                     this);
                             projectile.setPosition(dragonPartHead.posX, dragonPartHead.posY, dragonPartHead.posZ);
                             worldObj.spawnEntityInWorld(projectile);
@@ -721,7 +721,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                                 worldObj,
                                 EntityDragonProjectile.FIRE_CHASER,
                                 attackTarget instanceof EntityLivingBase ? (EntityLivingBase) attackTarget : null,
-                                5F + (rand.nextFloat() * 2F),
+                                12F + (rand.nextFloat() * 2F),
                                 this);
                         projectile.setPosition(dragonPartHead.posX, dragonPartHead.posY, dragonPartHead.posZ);
                         worldObj.spawnEntityInWorld(projectile);
@@ -733,7 +733,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                                 worldObj,
                                 EntityDragonProjectile.ENERGY_CHASER,
                                 attackTarget instanceof EntityLivingBase ? (EntityLivingBase) attackTarget : null,
-                                5F + (rand.nextFloat() * 10F),
+                                12F + (rand.nextFloat() * 10F),
                                 this);
                         projectile.setPosition(dragonPartHead.posX, dragonPartHead.posY, dragonPartHead.posZ);
                         worldObj.spawnEntityInWorld(projectile);
@@ -745,7 +745,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                                 worldObj,
                                 EntityDragonProjectile.CHAOS_CHASER,
                                 attackTarget instanceof EntityLivingBase ? (EntityLivingBase) attackTarget : null,
-                                5F + (rand.nextFloat() * 10F),
+                                12F + (rand.nextFloat() * 10F),
                                 this);
                         projectile.setPosition(dragonPartHead.posX, dragonPartHead.posY, dragonPartHead.posZ);
                         worldObj.spawnEntityInWorld(projectile);
@@ -765,7 +765,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
                                     worldObj,
                                     EntityDragonProjectile.TELEPORT,
                                     attackTarget instanceof EntityLivingBase ? (EntityLivingBase) attackTarget : null,
-                                    5F + (rand.nextFloat() * 8F),
+                                    20F + (rand.nextFloat() * 12F),
                                     this);
                             projectile.setPosition(dragonPartHead.posX, dragonPartHead.posY, dragonPartHead.posZ);
                             worldObj.spawnEntityInWorld(projectile);
@@ -1220,7 +1220,7 @@ public class EntityChaosGuardian extends EntityDragon { // summon DraconicEvolut
 
         if (this.healingChaosCrystal != null) {
             if (!healingChaosCrystal.isAlive()) {
-                this.attackEntityFromPart(this.dragonPartHead, DamageSource.setExplosionSource(null), 10.0F);
+                this.attackEntityFromPart(this.dragonPartHead, DamageSource.setExplosionSource(null), 25.0F);
                 healingChaosCrystal = null;
             } else if (this.ticksExisted % 10 == 0 && this.getHealth() < this.getMaxHealth()) {
                 this.setHealth(this.getHealth() + 2F);

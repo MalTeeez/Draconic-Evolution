@@ -260,7 +260,7 @@ public class DraconicSword extends ItemSword
 
     @Override
     public int getMaxTier(ItemStack itemstack) {
-        return 2;
+        return 3;
     }
 
     @Override

@@ -29,6 +29,7 @@ import com.brandon3055.draconicevolution.common.utills.IUpgradableItem;
 import com.brandon3055.draconicevolution.integration.ModHelper;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
@@ -182,30 +183,49 @@ public class CustomArmorHandler {
         }
 
         if (totalCharge < BalanceConfigHandler.draconicArmorBaseStorage) return;
-
+        if (summery.deathSaves < 1) {
+            FMLLog.info("Died at " + summery.deathSaves + " death saves");
+            return;
+        }
         for (int i = 0; i < summery.armorStacks.length; i++) {
             if (summery.armorStacks[i] != null) {
                 ((IEnergyContainerItem) summery.armorStacks[i].getItem()).extractEnergy(
                         summery.armorStacks[i],
-                        (int) ((charge[i] / (double) totalCharge) * BalanceConfigHandler.draconicArmorBaseStorage),
+                        (int) ((charge[i] / (double) totalCharge) * BalanceConfigHandler.draconicArmorBaseStorage
+                                * 4.0),
                         false);
             }
         }
 
+        ItemNBTHelper.setInteger(summery.armorStacks[2], "EmergencyCharges", summery.deathSaves - 1);
         player.addChatComponentMessage(
                 new ChatComponentTranslation("msg.de.shieldDepleted.txt")
-                        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_RED)));
+                        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.DARK_RED))
+                        .appendText(" | Emergency shield charges left: " + summery.deathSaves));
         event.setCanceled(true);
         player.setHealth(1);
     }
 
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-
         EntityPlayer player = event.player;
         ArmorSummery summery = new ArmorSummery().getSummery(player);
-
         tickShield(summery, player);
         tickArmorEffects(summery, player);
+        tickDeathSave(summery, player);
+    }
+
+    public static void tickDeathSave(ArmorSummery summary, EntityPlayer player) {
+        if (summary == null || player.worldObj.isRemote) return;
+        ItemStack stack = summary.armorStacks[2];
+        if (summary.protectionPoints >= 500 && summary.deathSaves < 20 && summary.entropy < 15.0F) {
+            int energyCost = (int) (((ICustomArmor) stack.getItem()).getMaxEnergyStored(stack) / 1.25F);
+            if (stack != null && ((IEnergyContainerItem) stack.getItem()).getEnergyStored(stack) > energyCost) {
+                ((IEnergyContainerItem) stack.getItem()).extractEnergy(stack, energyCost, false);
+                ItemNBTHelper.setFloat(stack, "ShieldEntropy", 100.0F);
+                ItemNBTHelper.setInteger(summary.armorStacks[2], "EmergencyCharges", summary.deathSaves + 1);
+                FMLLog.info("Added a death save, now at " + summary.deathSaves);
+            }
+        }
     }
 
     public static void tickShield(ArmorSummery summery, EntityPlayer player) {
@@ -241,6 +261,7 @@ public class CustomArmorHandler {
             summery.allocation[i] += pointsForPeace;
             if (summery.allocation[i] > maxForPeace || maxForPeace - summery.allocation[i] < 0.1F)
                 summery.allocation[i] = maxForPeace;
+
             ItemNBTHelper.setFloat(stack, "ProtectionPoints", summery.allocation[i]);
             if (player.hurtResistantTime <= 0) ItemNBTHelper.setFloat(stack, "ShieldEntropy", summery.entropy);
         }
@@ -386,7 +407,7 @@ public class CustomArmorHandler {
          */
         public float protectionPoints = 0F;
         /**
-         * Number of quipped armor peaces
+         * Number of quipped armor pieces
          */
         public int peaces = 0;
         /**
@@ -401,6 +422,10 @@ public class CustomArmorHandler {
          * The armor peaces (Index will contain null if peace is not present)
          */
         public ItemStack[] armorStacks;
+        /**
+         * Amount of times armor can save player from death
+         */
+        public int deathSaves = 0;
         /**
          * Mean Fatigue
          */
@@ -435,7 +460,6 @@ public class CustomArmorHandler {
             ItemStack[] armorSlots = player.inventory.armorInventory;
             float totalEntropy = 0;
             int totalRecoveryPoints = 0;
-
             allocation = new float[armorSlots.length];
             armorStacks = new ItemStack[armorSlots.length];
             pointsDown = new float[armorSlots.length];
@@ -463,6 +487,7 @@ public class CustomArmorHandler {
 
                 switch (i) {
                     case 2:
+                        deathSaves = ItemNBTHelper.getInteger(stack, "EmergencyCharges", 0);
                         flight = armor.hasFlight(stack);
                         if (flight[0]) {
                             flightVModifier = armor.getFlightVModifier(stack, player);
