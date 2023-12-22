@@ -1,0 +1,13 @@
+{
+  "ideaDirPath": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea",
+  "modulesMap": {
+    "Draconic-Evolution": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.iml",
+    "Draconic-Evolution:mcLauncher": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.mcLauncher.iml",
+    "Draconic-Evolution:patchedMc": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.patchedMc.iml",
+    "Draconic-Evolution:test": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.test.iml",
+    "Draconic-Evolution:injectedTags": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.injectedTags.iml",
+    "Draconic-Evolution:main": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.main.iml",
+    "Draconic-Evolution:api": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.api.iml",
+    "Draconic-Evolution:ideVirtualMain": "C:/Users/Mika/cloudVM/Draconic-Evolution/.idea/modules/Draconic-Evolution.ideVirtualMain.iml"
+  }
+}
