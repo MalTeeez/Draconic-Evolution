@@ -1,13 +1,16 @@
 package com.brandon3055.draconicevolution.common.tileentities;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Vec3;
 
 import com.brandon3055.draconicevolution.common.ModBlocks;
+import com.brandon3055.draconicevolution.common.utills.LogHelper;
 
 /**
  * Created by Brandon on 14/08/2014.
@@ -52,7 +55,9 @@ public class TilePlacedItem extends TileEntity {
         super.writeToNBT(compound);
         NBTTagCompound[] tag = new NBTTagCompound[1];
         tag[0] = new NBTTagCompound();
-        if (stack != null) tag[0] = stack.writeToNBT(tag[0]);
+        if (stack != null) {
+            stack.writeToNBT(tag[0]);
+        }
         compound.setTag("Item" + 0, tag[0]);
         compound.setFloat("Rotation", rotation);
     }
@@ -63,6 +68,16 @@ public class TilePlacedItem extends TileEntity {
         NBTTagCompound[] tag = new NBTTagCompound[1];
         tag[0] = compound.getCompoundTag("Item" + 0);
         stack = ItemStack.loadItemStackFromNBT(tag[0]);
+        if (stack == null) {
+            // the stack can be null if the placed item was
+            // an item that got removed in between mod updates
+            stack = new ItemStack(Blocks.stone);
+            this.invalidate();
+            LogHelper.error(
+                    "Cannot load the Placed Item at location "
+                            + Vec3.createVectorHelper(this.xCoord, this.yCoord, this.zCoord)
+                            + " because the associated item is null, it will be removed.");
+        }
         rotation = compound.getFloat("Rotation");
     }
 }
